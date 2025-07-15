@@ -1,0 +1,31 @@
+.App {
+  background-color: #18191a;
+  text-align: center;
+}
+
+.content {
+  padding: 30px;
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ff1801;
+  padding: 16px 32px;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.banner-logo {
+  height: 48px;
+  margin-right: 20px;
+}
+
+.banner-title {
+  font-size: 2rem;
+  font-weight: bold;
+  flex: 1;
+  text-align: left;
+  color: #ffffee;
+}
