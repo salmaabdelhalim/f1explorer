@@ -1,12 +1,13 @@
-import { Typography, Card, CardContent } from "@mui/material";
+import { Typography, Card, Button } from "@mui/material";
 
-const SeasonCard = ({ season }) => {
+const SeasonCard = ({ season, raceName, Circuit, date, onSeasonClick }) => {
   return (
-    <div>
+    <Button onClick={() => onSeasonClick({ season })}>
       <Card
         sx={{
           width: 345,
           height: 345,
+          padding: "30px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -15,13 +16,15 @@ const SeasonCard = ({ season }) => {
         }}
         variant="outlined"
       >
-        {/* <CardContent className="card-text"> */}
-        <Typography className="card-text" variant="h6">
-          {season.season}
-        </Typography>
-        {/* </CardContent> */}
+        {raceName ? (
+          <Typography className="card-text" variant="h6">
+            {raceName} <br /> {Circuit.circuitName} <br /> {date}
+          </Typography>
+        ) : (
+          <Typography>{season}</Typography>
+        )}
       </Card>
-    </div>
+    </Button>
   );
 };
 

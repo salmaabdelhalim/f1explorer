@@ -1,11 +1,11 @@
-import { List, ListItem, ListItemButton } from "@mui/material";
+import { List, ListItem, ListItemButton, Typography } from "@mui/material";
 import React from "react";
-import Races from "../Races/Races";
 
-const ListView = ({ seasons, races, selectedSeason, isListView }) => {
+const ListView = ({ items = [], onSeasonClick }) => {
+  console.log("items: ", items);
   return (
     <List>
-      {seasons.map((season) => (
+      {items.map(({ season, raceName, Circuit, date }) => (
         <ListItem
           sx={{
             display: "flex",
@@ -14,13 +14,17 @@ const ListView = ({ seasons, races, selectedSeason, isListView }) => {
             justifyContent: "center",
             color: "#ffffee",
           }}
-          key={season.season}
+          key={season || raceName}
         >
-          <ListItemButton>{season.season}</ListItemButton>
-          {/* Show Races component if this season is selected */}
-          {selectedSeason === season.season && (
-            <Races isListView={isListView} season={season.season} />
-          )}
+          <ListItemButton onClick={() => onSeasonClick({ season })}>
+            {raceName ? (
+              <Typography>
+                {raceName} {Circuit.circuitName} {date}
+              </Typography>
+            ) : (
+              <Typography>{season}</Typography>
+            )}
+          </ListItemButton>
         </ListItem>
       ))}
     </List>

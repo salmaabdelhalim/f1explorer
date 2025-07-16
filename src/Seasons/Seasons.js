@@ -1,24 +1,65 @@
 // import logo from './logo.svg';
-import React, { useState, useEffect } from "react";
-// import "./App.css";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Pagination, Stack, Switch } from "@mui/material";
 import Cards from "../Cards/Cards";
 import ListView from "../List/ListView";
-import axios from "axios";
-// import { Switch } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-function Seasons({ isListView }) {
+function Seasons() {
   const [seasons, setSeasons] = useState([]);
+  const [page, setPage] = useState(1);
+  const [isListView, setIsListView] = useState(false);
+  const itemsPerPage = isListView ? 10 : 9;
+  const navigate = useNavigate();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    axios
+      .get("https://api.jolpi.ca/ergast/f1/seasons?limit=1000")
+      .then((response) => {
+        const seasonsData = response.data.MRData.SeasonTable.Seasons;
+        setSeasons(seasonsData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const paginatedItems = seasons.slice(
+    (page - 1) * itemsPerPage,
+    page * itemsPerPage
+  );
+
+  const totalPages = Math.ceil(seasons.length / itemsPerPage);
+
+  const handleSeasonClick = (season) => {
+    navigate(`${season.season}/races`);
+  };
 
   return (
-    <>
+    <Stack>
+      <div
+        style={{ display: "flex", justifyContent: "flex-end", marginBottom: 8 }}
+      >
+        <Switch
+          checked={isListView}
+          onChange={() => setIsListView((val) => !val)}
+          color="primary"
+        />
+      </div>
       {isListView ? (
-        <ListView seasons={seasons} />
+        <ListView items={paginatedItems} onSeasonClick={handleSeasonClick} />
       ) : (
-        <Cards seasons={seasons} />
+        <Cards items={paginatedItems} onSeasonClick={handleSeasonClick} />
       )}
-    </>
+      <Pagination
+        count={totalPages}
+        page={page}
+        onChange={(_, value) => setPage(value)}
+        color="primary"
+        sx={{ mt: 2, alignSelf: "center" }}
+      />
+    </Stack>
   );
 }
 
