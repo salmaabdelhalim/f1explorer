@@ -1,39 +1,87 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import DriverTable from "./DriverTable";
+import { Grid, Typography } from "@mui/material";
+import { BarChart } from "@mui/x-charts/BarChart";
+import { LineChart } from "@mui/x-charts";
 
 const Race = () => {
-  const { season } = useParams();
-  console.log("seasons: ", { ...season });
+  const { season, round } = useParams();
   const [raceInfo, setRaceInfo] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`https://api.jolpi.ca/ergast/f1/${season}/results`)
+      .get(
+        `https://api.jolpi.ca/ergast/f1/${season}/${round}/results?limit=1000`
+      )
       .then((response) => {
-        const racesData = response.data.MRData.RaceTable.Races.Results;
-        console.log("raceData: ", response);
+        const racesData = response.data.MRData.RaceTable.Races?.[0];
         setRaceInfo(racesData);
       })
       .catch((error) => {
         console.warn(error);
       });
-  }, [season]);
+  }, [season, round]);
+
+  const chartData = raceInfo?.Results?.map((race) => {
+    return {
+      driver: race?.Driver?.familyName,
+      time: Number(race?.Time?.millis) || 0,
+    };
+  });
 
   return (
     <div>
-      <h2>Race Results</h2>
-      {raceInfo.length === 0 ? (
+      <Typography className="header" variant="h3">
+        Race Results
+      </Typography>
+      {raceInfo?.Results?.length === 0 ? (
         <p>No results found.</p>
       ) : (
-        <ul>
-          {raceInfo.map((result, idx) => (
-            <li key={idx}>
-              {result.Driver.givenName} {result.Driver.familyName} - Position:{" "}
-              {result.position}
-            </li>
-          ))}
-        </ul>
+        <Grid container spacing={3}>
+          <Grid item size={6}>
+            <DriverTable results={raceInfo.Results} />
+          </Grid>
+          <Grid item size={6}>
+            {chartData && (
+              <>
+                <BarChart
+                  dataset={chartData}
+                  grid={{ vertical: true }}
+                  layout="horizontal"
+                  yAxis={[{ scaleType: "band", dataKey: "driver" }]}
+                  series={[
+                    {
+                      dataKey: "time",
+                      label: (
+                        <Typography className="header" variant="h8">
+                          Drivers Performance
+                        </Typography>
+                      ),
+                    },
+                  ]}
+                  height={500}
+                />
+                <LineChart
+                  dataset={chartData}
+                  xAxis={[{ scaleType: "band", dataKey: "driver" }]}
+                  series={[
+                    {
+                      dataKey: "time",
+                      label: (
+                        <Typography className="header" variant="h8">
+                          Drivers Performance
+                        </Typography>
+                      ),
+                    },
+                  ]}
+                  height={500}
+                />
+              </>
+            )}
+          </Grid>
+        </Grid>
       )}
     </div>
   );

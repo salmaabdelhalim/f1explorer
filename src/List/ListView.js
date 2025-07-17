@@ -2,10 +2,9 @@ import { List, ListItem, ListItemButton, Typography } from "@mui/material";
 import React from "react";
 
 const ListView = ({ items = [], onSeasonClick }) => {
-  console.log("items: ", items);
   return (
     <List>
-      {items.map(({ season, raceName, Circuit, date }) => (
+      {items.map(({ season, round, raceName, Circuit, date }) => (
         <ListItem
           sx={{
             display: "flex",
@@ -16,7 +15,7 @@ const ListView = ({ items = [], onSeasonClick }) => {
           }}
           key={season || raceName}
         >
-          <ListItemButton onClick={() => onSeasonClick({ season })}>
+          <ListItemButton onClick={() => onSeasonClick({ season, round })}>
             {raceName ? (
               <Typography>
                 {raceName} / {Circuit.circuitName} /{" "}
