@@ -1,6 +1,13 @@
 import { Typography, Card, Button } from "@mui/material";
 
 const SeasonCard = ({ season, raceName, Circuit, date, onSeasonClick }) => {
+  const newDate = new Date(date);
+  const formattedDate = newDate.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  console.log(formattedDate);
   return (
     <Button onClick={() => onSeasonClick({ season })}>
       <Card
@@ -18,7 +25,7 @@ const SeasonCard = ({ season, raceName, Circuit, date, onSeasonClick }) => {
       >
         {raceName ? (
           <Typography className="card-text" variant="h6">
-            {raceName} <br /> {Circuit.circuitName} <br /> {date}
+            {raceName} <br /> {Circuit.circuitName} <br /> {formattedDate}
           </Typography>
         ) : (
           <Typography>{season}</Typography>

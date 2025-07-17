@@ -19,7 +19,12 @@ const ListView = ({ items = [], onSeasonClick }) => {
           <ListItemButton onClick={() => onSeasonClick({ season })}>
             {raceName ? (
               <Typography>
-                {raceName} {Circuit.circuitName} {date}
+                {raceName} / {Circuit.circuitName} /{" "}
+                {new Date(date).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
               </Typography>
             ) : (
               <Typography>{season}</Typography>
