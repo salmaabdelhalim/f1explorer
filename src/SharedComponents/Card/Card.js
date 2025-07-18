@@ -1,4 +1,11 @@
-import { Typography, Card, Button } from "@mui/material";
+import { Typography, Card, Button, styled } from "@mui/material";
+
+const StyledText = styled(Typography)`
+  vertical-align: middle;
+  text-align: center;
+  color: #ffffff;
+  letter-spacing: 1px;
+`;
 
 const CardComponent = ({
   season,
@@ -27,13 +34,15 @@ const CardComponent = ({
           justifyContent: "center",
           backgroundColor: "#282c34",
           color: "#ffffee",
+          border: "2px solid #b0b3b8",
+          borderRadius: "12px",
         }}
         variant="outlined"
       >
         {raceName ? (
-          <Typography className="card-text" variant="h6">
+          <StyledText variant="h6">
             {raceName} <br /> {Circuit.circuitName} <br /> {formattedDate}
-          </Typography>
+          </StyledText>
         ) : (
           <Typography>{season}</Typography>
         )}

@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Pagination, Stack, Typography } from "@mui/material";
-import Cards from "../Card/Cards";
-import ListView from "../List/ListView";
+import Cards from "../SharedComponents/Card/Cards";
+import ListView from "../SharedComponents/List/ListView";
 import { useNavigate } from "react-router-dom";
 import SpinnerComponent from "../SharedComponents/Spinner";
 import styled from "@emotion/styled";
