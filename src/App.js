@@ -61,15 +61,6 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-const StyledSwitch = styled(Switch)(() => ({
-  "& .MuiSwitch-thumb:before": {
-    backgroundImage: `url(${ListTaskIcon})`,
-  },
-  "& .MuiSwitch-thumb": {
-    backgroundImage: `url(${CardTextIcon})`,
-  },
-}));
-
 function App() {
   const [isListView, setIsListView] = useState(false);
   return (
