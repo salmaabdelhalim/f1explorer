@@ -5,6 +5,7 @@ import { Pagination, Stack, Typography } from "@mui/material";
 import Cards from "../Cards/Cards";
 import ListView from "../List/ListView";
 import { useNavigate } from "react-router-dom";
+import SpinnerComponent from "../Spinner/Spinner";
 
 function Seasons({ isListView }) {
   const [seasons, setSeasons] = useState([]);
@@ -40,20 +41,27 @@ function Seasons({ isListView }) {
       <Typography variant="h3" className="header">
         Formula 1 Seasons
       </Typography>
-      <Stack>
-        {isListView ? (
-          <ListView items={paginatedItems} onSeasonClick={handleSeasonClick} />
-        ) : (
-          <Cards items={paginatedItems} onSeasonClick={handleSeasonClick} />
-        )}
-        <Pagination
-          count={totalPages}
-          page={page}
-          onChange={(_, value) => setPage(value)}
-          color="primary"
-          sx={{ mt: 2, alignSelf: "center" }}
-        />
-      </Stack>
+      {!seasons ? (
+        <SpinnerComponent />
+      ) : (
+        <Stack>
+          {isListView ? (
+            <ListView
+              items={paginatedItems}
+              onSeasonClick={handleSeasonClick}
+            />
+          ) : (
+            <Cards items={paginatedItems} onSeasonClick={handleSeasonClick} />
+          )}
+          <Pagination
+            count={totalPages}
+            page={page}
+            onChange={(_, value) => setPage(value)}
+            color="primary"
+            sx={{ mt: 2, alignSelf: "center" }}
+          />
+        </Stack>
+      )}
     </>
   );
 }

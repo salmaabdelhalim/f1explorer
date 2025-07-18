@@ -5,6 +5,7 @@ import DriverTable from "./DriverTable";
 import { Grid, Typography } from "@mui/material";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { LineChart } from "@mui/x-charts";
+import SpinnerComponent from "../Spinner/Spinner";
 
 const Race = () => {
   const { season, round } = useParams();
@@ -36,8 +37,8 @@ const Race = () => {
       <Typography className="header" variant="h3">
         Race Results
       </Typography>
-      {raceInfo?.Results?.length === 0 ? (
-        <p>No results found.</p>
+      {raceInfo?.Results?.length < 1 || raceInfo.length < 1 ? (
+        <SpinnerComponent />
       ) : (
         <Grid container spacing={3}>
           <Grid item size={6}>

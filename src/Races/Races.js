@@ -4,6 +4,8 @@ import { Pagination, Stack, Typography } from "@mui/material";
 import Cards from "../Cards/Cards";
 import ListView from "../List/ListView";
 import { useNavigate, useParams } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import SpinnerComponent from "../Spinner/Spinner";
 
 function Races({ isListView }) {
   const { season } = useParams();
@@ -40,20 +42,24 @@ function Races({ isListView }) {
       <Typography variant="h3" className="header">
         Season {season} Races
       </Typography>
-      <Stack>
-        {isListView ? (
-          <ListView items={paginatedItems} onSeasonClick={handleRaceClick} />
-        ) : (
-          <Cards items={paginatedItems} onSeasonClick={handleRaceClick} />
-        )}
-        <Pagination
-          count={totalPages}
-          page={page}
-          onChange={(_, value) => setPage(value)}
-          color="primary"
-          sx={{ mt: 2, alignSelf: "center" }}
-        />
-      </Stack>
+      {races.length < 1 ? (
+        <SpinnerComponent />
+      ) : (
+        <Stack>
+          {isListView ? (
+            <ListView items={paginatedItems} onSeasonClick={handleRaceClick} />
+          ) : (
+            <Cards items={paginatedItems} onSeasonClick={handleRaceClick} />
+          )}
+          <Pagination
+            count={totalPages}
+            page={page}
+            onChange={(_, value) => setPage(value)}
+            color="primary"
+            sx={{ mt: 2, alignSelf: "center" }}
+          />
+        </Stack>
+      )}
     </>
   );
 }
