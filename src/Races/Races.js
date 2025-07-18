@@ -1,11 +1,23 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Pagination, Stack, Typography } from "@mui/material";
-import Cards from "../Cards/Cards";
+import Cards from "../Card/Cards";
 import ListView from "../List/ListView";
 import { useNavigate, useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import SpinnerComponent from "../Spinner/Spinner";
+import SpinnerComponent from "../SharedComponents/Spinner";
+import styled from "@emotion/styled";
+
+const Wrapper = styled.div`
+  & .Mui-selected {
+    background-color: #ff1801;
+    color: #fffeee;
+  }
+
+  & .MuiPaginationItem-textPrimary {
+    color: #fffeee;
+  }
+`;
 
 function Races({ isListView }) {
   const { season } = useParams();
@@ -38,7 +50,7 @@ function Races({ isListView }) {
   const totalPages = Math.ceil(races.length / itemsPerPage);
 
   return (
-    <>
+    <Wrapper>
       <Typography variant="h3" className="header">
         Season {season} Races
       </Typography>
@@ -60,7 +72,7 @@ function Races({ isListView }) {
           />
         </Stack>
       )}
-    </>
+    </Wrapper>
   );
 }
 

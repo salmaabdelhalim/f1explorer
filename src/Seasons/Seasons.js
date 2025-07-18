@@ -2,10 +2,22 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Pagination, Stack, Typography } from "@mui/material";
-import Cards from "../Cards/Cards";
+import Cards from "../Card/Cards";
 import ListView from "../List/ListView";
 import { useNavigate } from "react-router-dom";
-import SpinnerComponent from "../Spinner/Spinner";
+import SpinnerComponent from "../SharedComponents/Spinner";
+import styled from "@emotion/styled";
+
+const Wrapper = styled.div`
+  & .Mui-selected {
+    background-color: #ff1801;
+    color: #fffeee;
+  }
+
+  & .MuiPaginationItem-textPrimary {
+    color: #fffeee;
+  }
+`;
 
 function Seasons({ isListView }) {
   const [seasons, setSeasons] = useState([]);
@@ -37,7 +49,7 @@ function Seasons({ isListView }) {
   };
 
   return (
-    <>
+    <Wrapper>
       <Typography variant="h3" className="header">
         Formula 1 Seasons
       </Typography>
@@ -62,7 +74,7 @@ function Seasons({ isListView }) {
           />
         </Stack>
       )}
-    </>
+    </Wrapper>
   );
 }
 

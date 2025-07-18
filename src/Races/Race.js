@@ -5,7 +5,7 @@ import DriverTable from "./DriverTable";
 import { Grid, Typography } from "@mui/material";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { LineChart } from "@mui/x-charts";
-import SpinnerComponent from "../Spinner/Spinner";
+import SpinnerComponent from "../SharedComponents/Spinner";
 
 const Race = () => {
   const { season, round } = useParams();
