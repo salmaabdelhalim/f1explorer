@@ -4,7 +4,71 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Seasons from "./Seasons/Seasons";
 import Races from "./Races/Races";
 import Race from "./Races/Race";
-import { Switch } from "@mui/material";
+import { styled, Switch } from "@mui/material";
+import Formula1Img from "./assets/images/Formula1.png";
+import CardTextIcon from "./assets/icons/card-text.svg";
+import ListTaskIcon from "./assets/icons/list-task.svg";
+
+const MaterialUISwitch = styled(Switch)(({ theme }) => ({
+  width: 62,
+  height: 34,
+  padding: 7,
+  "& .MuiSwitch-switchBase": {
+    margin: 1,
+    padding: 0,
+    transform: "translateX(6px)",
+    "&.Mui-checked": {
+      color: "#fff",
+      transform: "translateX(22px)",
+      "& .MuiSwitch-thumb:before": {
+        backgroundImage: `url(${ListTaskIcon})`,
+      },
+      "& + .MuiSwitch-track": {
+        opacity: 1,
+        backgroundColor: "#aab4be",
+        ...theme.applyStyles("dark", {
+          backgroundColor: "#8796A5",
+        }),
+      },
+    },
+  },
+  "& .MuiSwitch-thumb": {
+    backgroundColor: "#ffffee",
+    width: 32,
+    height: 32,
+    "&::before": {
+      content: "''",
+      position: "absolute",
+      width: "100%",
+      height: "100%",
+      left: 0,
+      top: 0,
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center",
+      backgroundImage: `url(${CardTextIcon})`,
+    },
+    ...theme.applyStyles("dark", {
+      backgroundColor: "#003892",
+    }),
+  },
+  "& .MuiSwitch-track": {
+    opacity: 1,
+    backgroundColor: "#aab4be",
+    borderRadius: 20 / 2,
+    ...theme.applyStyles("dark", {
+      backgroundColor: "#8796A5",
+    }),
+  },
+}));
+
+const StyledSwitch = styled(Switch)(() => ({
+  "& .MuiSwitch-thumb:before": {
+    backgroundImage: `url(${ListTaskIcon})`,
+  },
+  "& .MuiSwitch-thumb": {
+    backgroundImage: `url(${CardTextIcon})`,
+  },
+}));
 
 function App() {
   const [isListView, setIsListView] = useState(false);
@@ -12,14 +76,10 @@ function App() {
     <Router>
       <div className="App">
         <div className="banner">
-          <img
-            src={process.env.PUBLIC_URL + "/img/Formula1.png"}
-            alt="F1 Logo"
-            className="banner-logo"
-          />
+          <img src={Formula1Img} alt="F1 Logo" className="banner-logo" />
           <span className="banner-title">F1 Explorer</span>
           <span style={{ marginLeft: "auto" }}>
-            <Switch
+            <MaterialUISwitch
               checked={isListView}
               onChange={() => setIsListView((val) => !val)}
               color="primary"
