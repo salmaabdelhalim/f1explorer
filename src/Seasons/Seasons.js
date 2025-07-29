@@ -50,7 +50,7 @@ function Seasons({ isListView }) {
 
   return (
     <Wrapper>
-      <Typography variant="h3" className="header">
+      <Typography variant="h3" className="header" sx={{ mb: "30px" }}>
         Formula 1 Seasons
       </Typography>
       {!seasons ? (

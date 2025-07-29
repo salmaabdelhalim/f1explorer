@@ -34,7 +34,7 @@ const Race = () => {
 
   return (
     <div>
-      <Typography className="header" variant="h3">
+      <Typography className="header" variant="h3" sx={{ mb: "30px" }}>
         Race Results
       </Typography>
       {raceInfo?.Results?.length < 1 || raceInfo.length < 1 ? (

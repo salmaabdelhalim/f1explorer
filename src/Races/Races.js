@@ -51,7 +51,7 @@ function Races({ isListView }) {
 
   return (
     <Wrapper>
-      <Typography variant="h3" className="header">
+      <Typography variant="h3" className="header" sx={{ mb: "30px" }}>
         Season {season} Races
       </Typography>
       {races.length < 1 ? (
